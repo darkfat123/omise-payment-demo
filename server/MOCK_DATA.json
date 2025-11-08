@@ -1,0 +1,302 @@
+[
+    {
+        "id": 1,
+        "name": "Spicy Hummus",
+        "description": "Creamy hummus with a kick of spice, great for dipping.",
+        "price": 3.49,
+        "category": "Food - Deli",
+        "quantity": 52,
+        "rating": 3.3,
+        "image": "https://www.attainable-sustainable.net/wp-content/uploads/2022/03/spicy-hummus-FB.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Spicy Thai Chili Sauce",
+        "description": "A sweet and spicy sauce for dipping or cooking.",
+        "price": 3.29,
+        "category": "Food - Sauces",
+        "quantity": 67,
+        "rating": 4.7,
+        "image": "https://myfoodstory.com/wp-content/uploads/2020/06/Thai-Sweet-Chili-Sauce-2.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Wooden Blocks",
+        "description": "Classic wooden building blocks for toddlers.",
+        "price": 24.99,
+        "category": "Toys",
+        "quantity": 63,
+        "rating": 3.1,
+        "image": "https://m.media-amazon.com/images/I/71Db+Yy33fL._AC_SL1500_.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Instant Pot",
+        "description": "7-in-1 multi-cooker for versatile cooking.",
+        "price": 89.99,
+        "category": "Kitchen",
+        "quantity": 21,
+        "rating": 4.1,
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Instant_Pot_%2849907000991%29.jpg/1200px-Instant_Pot_%2849907000991%29.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Kids' Gardening Kit",
+        "description": "Complete set designed for children to learn gardening.",
+        "price": 24.99,
+        "category": "Toys",
+        "quantity": 97,
+        "rating": 3.8,
+        "image": "https://i5.walmartimages.com/seo/Kidoozie-My-First-Gardening-Set-Sprout-Green-Thumbs-with-this-Pretend-Play-Playset-Indoor-and-Outdoor-Fun-for-Ages-3_28c29f56-cc2e-473c-82ca-449a42b3c2b0.f9648d0bf16a8bb38ca0c56e18d5b0c3.jpeg"
+    },
+    {
+        "id": 6,
+        "name": "Avocado Oil",
+        "description": "A healthy oil extracted from avocados, ideal for frying and salads.",
+        "price": 8.49,
+        "category": "Food - Oils",
+        "quantity": 24,
+        "rating": 4.8,
+        "image": "https://cdn-prod.medicalnewstoday.com/content/images/articles/321/321543/avocado-oil-in-jar-next-to-halved-avocado.jpg"
+    },
+    {
+        "id": 7,
+        "name": "DIY Lip Balm Kit",
+        "description": "Craft your own lip balms with this complete kit.",
+        "price": 22.99,
+        "category": "Crafts",
+        "quantity": 13,
+        "rating": 3.7,
+        "image": "https://ecopromotionsonline.com/sites/default/files/2022-02/USA%20made%20do%20it%20yourself%20sustainable%20lip%20balm%20kit.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Peanut Butter Granola",
+        "description": "Crunchy granola full of peanut butter flavor and oats.",
+        "price": 4.99,
+        "category": "Food - Breakfast",
+        "quantity": 50,
+        "rating": 4.9,
+        "image": "https://www.kyleecooks.com/wp-content/uploads/2021/03/Peanut-Butter-Granola-19.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Cinnamon Sugar Mix",
+        "description": "Sweet mixture of cinnamon and sugar for sprinkling.",
+        "price": 1.49,
+        "category": "Food - Baking",
+        "quantity": 91,
+        "rating": 4.9,
+        "image": "https://www.simplyscratch.com/wp-content/uploads/2020/02/Cinnamon-Sugar-l-SimplyScratch.com-homemade-cinnamon-sugar-spice-easy-spiceblend-6.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Organic Granola",
+        "description": "Healthy granola made with oats and honey.",
+        "price": 5.49,
+        "category": "Food - Breakfast",
+        "quantity": 9,
+        "rating": 4.8,
+        "image": "https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,w_730/k%2FPhoto%2FRecipes%2F2024-02-granola%2Fgranola-040"
+    },
+    {
+        "id": 11,
+        "name": "Fruit & Nut Trail Mix",
+        "description": "A blend of dried fruits and nuts, great for snacking.",
+        "price": 4.99,
+        "category": "Food - Snacks",
+        "quantity": 36,
+        "rating": 3.9,
+        "image": "https://myculturedpalate.com/wp-content/uploads/2013/05/July-05-2018DSC_2593-.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Vegetable Spring Rolls",
+        "description": "Crispy spring rolls filled with vegetables",
+        "price": 6.49,
+        "category": "Food - Frozen Foods",
+        "quantity": 100,
+        "rating": 3.9,
+        "image": "https://hot-thai-kitchen.com/wp-content/uploads/2021/03/veggie-spring-rolls-blog.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Herbal Tea Sampler Box",
+        "description": "Assorted collection of herbal teas for relaxation and wellness.",
+        "price": 29.99,
+        "category": "Food",
+        "quantity": 50,
+        "rating": 4.2,
+        "image": "https://taooftea.com/wp-content/uploads/2020/11/sampler-herbal-side-1-copy-min.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Self-Stirring Mug",
+        "description": "Automated stirring for your drinks with just a press of a button.",
+        "price": 19.99,
+        "category": "Kitchen",
+        "quantity": 9,
+        "rating": 4.7,
+        "image": "https://www.homefittools.com/media/wysiwyg/Auto_sturring_mug_350ml.-2.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Stick Vacuums Cleaner",
+        "description": "Cordless vacuum cleaner for quick clean-ups.",
+        "price": 129.99,
+        "category": "Home Appliances",
+        "quantity": 53,
+        "rating": 3.7,
+        "image": "https://cdn.mos.cms.futurecdn.net/PX4LBVzTyp5sXakJeJ94RD.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Interactive Plush Toy",
+        "description": "Soft, cuddly toy that interacts with children.",
+        "price": 34.99,
+        "category": "Toys",
+        "quantity": 91,
+        "rating": 3.7,
+        "image": "https://leantoys.com/hpeciai/7e7f39ce0c5718df204a5583968a426c/eng_pl_Dog-Plush-Interactive-Animal-Walks-Barking-Purple-17598_2.png"
+    },
+    {
+        "id": 17,
+        "name": "Smart Home Hub",
+        "description": "Connect and control smart devices from one app.",
+        "price": 99.99,
+        "category": "Smart Home",
+        "quantity": 68,
+        "rating": 3.8,
+        "image": "https://blog-cdn.athom.com/uploads/2019/08/Homey-Pro-1-2000x1125.png"
+    },
+    {
+        "id": 18,
+        "name": "Grilled Vegetable Medley",
+        "description": "A mix of grilled vegetables, ready to heat for quick side dishes.",
+        "price": 4.49,
+        "category": "Food - Vegetables",
+        "quantity": 89,
+        "rating": 4.6,
+        "image": "https://hollandhouseflavors.com/wp-content/uploads/2023/10/hhorganics_recipes_grilledvegetablemedley_1313x664.jpeg"
+    },
+    {
+        "id": 19,
+        "name": "Striped Long Sleeve Shirt",
+        "description": "A casual striped long sleeve shirt that's perfect for layering.",
+        "price": 29.99,
+        "category": "Clothing - Shirts",
+        "quantity": 5,
+        "rating": 3.8,
+        "image": "https://www.jcrew.com/s7-img-facade/CL136_YD9420"
+    },
+    {
+        "id": 20,
+        "name": "Pumpkin Puree",
+        "description": "Canned pumpkin puree, perfect for pies and soups.",
+        "price": 2.99,
+        "category": "Food - Canned Goods",
+        "quantity": 41,
+        "rating": 3.5,
+        "image": "https://joyfoodsunshine.com/wp-content/uploads/2025/10/homemade-pumpkin-puree-recipe-16x9-1.jpg"
+    },
+    {
+        "id": 21,
+        "name": "Microfiber Cleaning Cloths",
+        "description": "Pack of ultra-soft microfiber cloths for cleaning.",
+        "price": 9.99,
+        "category": "Home",
+        "quantity": 74,
+        "rating": 4.9,
+        "image": "https://www.standardtextile.com/wp-content/uploads/2020/05/microfiber_listing_630x439.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Fitness Foam Roller",
+        "description": "High-density foam roller for muscle recovery.",
+        "price": 29.99,
+        "category": "Fitness",
+        "quantity": 38,
+        "rating": 4.0,
+        "image": "https://www.jtxfitness.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/j/t/jtx_foam_rollers_1.jpg"
+    },
+    {
+        "id": 23,
+        "name": "Silicone Wine Glasses",
+        "description": "Durable and shatterproof silicone glasses for outdoor use.",
+        "price": 22.99,
+        "category": "Outdoor",
+        "quantity": 20,
+        "rating": 4.9,
+        "image": "https://image.made-in-china.com/365f3j00SjIDAyUGnYRZ/Silicone-Wine-Glasses-with-Stem-Unbreakable-Rubber-Wine-Glasses-Various-Options-Wbb17710.webp"
+    },
+    {
+        "id": 24,
+        "name": "Camping Lantern",
+        "description": "Rechargeable LED camping lantern for outdoor use.",
+        "price": 34.99,
+        "category": "Outdoor",
+        "quantity": 78,
+        "rating": 3.5,
+        "image": "https://outdoorcampingdisorder.com/wp-content/uploads/2022/02/Forest-Lantern-Light.jpg"
+    },
+    {
+        "id": 25,
+        "name": "Spinach Pizza Rolls",
+        "description": "Frozen pizza rolls stuffed with spinach and cheese, perfect for snacking.",
+        "price": 4.99,
+        "category": "Food - Frozen Foods",
+        "quantity": 92,
+        "rating": 4.2,
+        "image": "https://www.kitschencat.com/wp-content/uploads/2017/02/Pizza-Rolls-1-600x400.jpg"
+    },
+    {
+        "id": 26,
+        "name": "Peanut Butter Chocolate Chip Bars",
+        "description": "Chewy bars made with peanut butter and chocolate chips.",
+        "price": 4.59,
+        "category": "Food - Snacks",
+        "quantity": 46,
+        "rating": 4.7,
+        "image": "https://www.pinkwhen.com/wp-content/uploads/2023/12/peanut-butter-chocolate-chip-bars-wide.jpg"
+    },
+    {
+        "id": 27,
+        "name": "Water Bottle with Built-in Fruit Infuser",
+        "description": "Stay hydrated with refreshing flavored water.",
+        "price": 18.99,
+        "category": "Fitness",
+        "quantity": 20,
+        "rating": 3.8,
+        "image": "https://infusionpro.com/wp-content/uploads/2022/08/Image-1_Adventure-Black-Cropped-1-1.jpg"
+    },
+    {
+        "id": 28,
+        "name": "Workstation Laptop Stand",
+        "description": "Adjustable stand to improve ergonomics while working on a laptop.",
+        "price": 49.99,
+        "category": "Office",
+        "quantity": 78,
+        "rating": 3.5,
+        "image": "https://m.media-amazon.com/images/I/41UEtW+iZFL._AC_UF894,1000_QL80_.jpg"
+    },
+    {
+        "id": 29,
+        "name": "Green Smoothie Mix",
+        "description": "A convenient powder mix combining greens and fruits for smoothies.",
+        "price": 5.99,
+        "category": "Food - Beverages",
+        "quantity": 70,
+        "rating": 4.1,
+        "image": "https://thailandjuicer.com/wp-content/uploads/every-green-smoothie.jpg"
+    },
+    {
+        "id": 30,
+        "name": "Yoga Mat",
+        "description": "Non-slip yoga mat for all types of yoga and exercise.",
+        "price": 25.99,
+        "category": "Fitness",
+        "quantity": 33,
+        "rating": 4.6,
+        "image": "https://www.saga.co.uk/helix-contentlibrary/exceptional/2023/08/yoga-mats.jpg"
+    }
+]

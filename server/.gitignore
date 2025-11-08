@@ -1,0 +1,36 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output
+/bin/
+/build/
+/out/
+*.out
+
+# Test binary
+*.test
+
+# Dependency directories
+/vendor/
+
+# Go modules cache
+/go.sum
+/go.mod
+
+# IDE/editor files
+*.swp
+*.swo
+*.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
