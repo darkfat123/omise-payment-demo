@@ -32,12 +32,6 @@ func InitConstants() {
 	OMISE_PUBLIC_KEY = os.Getenv("OMISE_PUBLIC_KEY")
 	OMISE_SECRET_KEY = os.Getenv("OMISE_SECRET_KEY")
 	DATABASE_URL = os.Getenv("DATABASE_URL")
-
-	log.Println("ALLOWED_ORIGIN:", ALLOWED_ORIGIN)
-	log.Println("PORT:", PORT)
-	log.Println("OMISE_PUBLIC_KEY:", OMISE_PUBLIC_KEY)
-	log.Println("OMISE_SECRET_KEY:", OMISE_SECRET_KEY)
-	log.Println("DATABASE_URL:", DATABASE_URL)
 }
 
 var DB *pgxpool.Pool
