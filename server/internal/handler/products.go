@@ -8,20 +8,40 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetProducts(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, service.GetProducts())
+// ProductHandler wraps the ProductService
+type ProductHandler struct {
+	service *service.ProductService
 }
-func GetProductByID(c *gin.Context) {
+
+// NewProductHandler creates a new ProductHandler with injected service
+func NewProductHandler(s *service.ProductService) *ProductHandler {
+	return &ProductHandler{service: s}
+}
+
+// GetProducts returns all products
+func (h *ProductHandler) GetProducts(c *gin.Context) {
+	products, err := h.service.GetProducts(c.Request.Context())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, products)
+}
+
+// GetProductByID returns a single product by its ID
+func (h *ProductHandler) GetProductByID(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "invalid product id"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid product id"})
 		return
 	}
-	product := service.GetProductByID(id)
-	if product == nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "product not found"})
+
+	product, err := h.service.GetProductByID(c.Request.Context(), int32(id))
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "product not found"})
 		return
 	}
-	c.IndentedJSON(http.StatusOK, product)
+
+	c.JSON(http.StatusOK, product)
 }

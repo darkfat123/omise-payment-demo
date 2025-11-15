@@ -1,19 +1,38 @@
 package internal
 
 import (
+	"server/config"
 	"server/internal/handler"
 	"server/internal/middleware"
+	"server/internal/service"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRouter() *gin.Engine {
+	// Initialize Gin
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
-	v1 := r.Group("/api/v1", middleware.AuthMiddleware())
+
+	// Services
+	productService := service.NewProductService(config.Queries)
+	paymentService := service.NewPaymentService(config.GetOmiseClient(), config.Queries)
+
+	// Handlers
+	productHandler := handler.NewProductHandler(productService)
+	paymentHandler := handler.NewPaymentHandler(paymentService)
+
+	// API v1
+	v1 := r.Group("/api/v1")
 	{
-		v1.GET("/products", handler.GetProducts)
-		v1.GET("/products/:id", handler.GetProductByID)
+		// Product routes (public)
+		v1.GET("/products", productHandler.GetProducts)
+		v1.GET("/products/:id", productHandler.GetProductByID)
+
+		// Payment routes (protected)
+		pay := v1.Group("/pay")
+		pay.Use(middleware.AuthMiddleware())
+		pay.POST("/promptPay", paymentHandler.CreatePromptPayPayment)
 	}
 
 	return r

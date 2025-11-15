@@ -2,24 +2,17 @@ package main
 
 import (
 	"log"
-	"os"
+	"server/config"
 	"server/internal"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No .env file found, using system environment")
-	}
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		log.Fatalln("No PORT found in environment")
-	}
+	config.InitConstants()
+	config.InitOmise()
+	config.InitDB()
+	defer config.CloseDB()
 
 	r := internal.SetupRouter()
-	log.Printf("Server running at :%s\n", port)
-	r.Run(":" + port)
+	log.Printf("Server running at :%s\n", config.PORT)
+	r.Run(":" + config.PORT)
 }

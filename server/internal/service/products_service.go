@@ -1,20 +1,26 @@
 package service
 
 import (
-	"server/db"
+	"context"
+	"server/db/sqlc"
 )
 
-type Product = db.Product
-
-func GetProducts() []Product {
-	return db.Products
+type ProductService struct {
+	queries *sqlc.Queries
 }
 
-func GetProductByID(id int) *Product {
-	for _, a := range db.Products {
-		if a.ID == id {
-			return &a
-		}
+func NewProductService(q *sqlc.Queries) *ProductService {
+	return &ProductService{queries: q}
+}
+
+func (s *ProductService) GetProducts(ctx context.Context) ([]sqlc.Product, error) {
+	return s.queries.ListProducts(ctx)
+}
+
+func (s *ProductService) GetProductByID(ctx context.Context, id int32) (*sqlc.Product, error) {
+	product, err := s.queries.GetProductByID(ctx, id)
+	if err != nil {
+		return nil, err
 	}
-	return nil
+	return &product, nil
 }
