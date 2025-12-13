@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
-import { useCartStore } from "@/app/stores/cartStore";
+import { useCartStore } from "@/stores/cartStore";
 
 type Props = {
   product: Product;

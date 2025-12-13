@@ -1,8 +1,10 @@
 "use client";
 
-import { useCartStore } from "@/app/stores/cartStore";
+import { useCartStore } from "@/stores/cartStore";
 import { Delete, Minus, Plus, X } from "lucide-react";
 import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
+import Link from "next/link";
 
 const MiniCartDrawer = ({
     open,
@@ -76,17 +78,24 @@ const MiniCartDrawer = ({
                                     </button>
                                 </div>
                                 <Delete onClick={() => removeFromCart(item.ID)} className="text-red-500 text-sm" />
+
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="p-4 border-t">
+                <div className="p-4 border-t gap-2 flex flex-col">
                     <div className="flex justify-between font-semibold mb-3">
                         <span>Total</span>
                         <span>฿{totalPrice.toFixed(2)}</span>
                     </div>
-                    <PrimaryButton className="flex-1 w-full py-3">Checkout</PrimaryButton>
+                    <Link href={items.length > 0 ? "/checkout" : "#"} className="flex-1">
+                        <PrimaryButton disabled={items.length === 0} className="w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Checkout
+                        </PrimaryButton>
+                    </Link>
+
+                    <SecondaryButton onClick={() => cart.clearCart()} className="flex-1 w-full py-3">Clear</SecondaryButton>
                 </div>
             </div>
         </>
