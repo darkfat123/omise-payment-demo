@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import StarRating from "./ReviewRating";
 import ProductModal from "./ProductModal";
+import type { Product } from "@/types/Product";
 
 type Props = {
     product: Product;

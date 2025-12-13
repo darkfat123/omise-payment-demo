@@ -1,24 +1,7 @@
 import React from "react";
 import ProductCard from "@/components/ProductCard";
 import CartUI from "@/components/Cart";
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer example-token",
-    },
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
-  }
-
-
-  return res.json();
-}
-
+import { getProducts } from "@/services/products";
 
 const ProductsPage = async () => {
   const products = await getProducts();

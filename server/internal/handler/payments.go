@@ -23,7 +23,6 @@ func (h *PaymentHandler) CreatePromptPayPayment(c *gin.Context) {
 		return
 	}
 
-	// Service will calculate total and create payment
 	uri, err := h.service.CreatePromptPayPayment(c.Request.Context(), cart)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

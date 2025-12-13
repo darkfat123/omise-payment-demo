@@ -5,6 +5,7 @@ import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 import { useCartStore } from "@/stores/cartStore";
+import type { Product } from "@/types/Product";
 
 type Props = {
   product: Product;

@@ -1,7 +1,7 @@
 // store/cartStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
+import type { Product } from "@/types/Product";
 
 type CartItem = Product & { qty: number };
 

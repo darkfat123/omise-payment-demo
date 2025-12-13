@@ -1,4 +1,5 @@
 import ProductCardClient from "./ProductCardClient";
+import type { Product } from "@/types/Product";
 
 type Props = {
   product: Product;
