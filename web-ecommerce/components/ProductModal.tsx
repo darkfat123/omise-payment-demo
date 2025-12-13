@@ -3,34 +3,26 @@
 import { useState } from "react";
 import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
-import SecondaryButton from "./SecondartButton";
+import SecondaryButton from "./SecondaryButton";
+import { useCartStore } from "@/app/stores/cartStore";
 
 type Props = {
-    product: Product;
-    onClose: () => void;
+  product: Product;
+  onClose: () => void;
 };
 
 const ProductModal = ({ product, onClose }: Props) => {
-    const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(1);
+  const addToCart = useCartStore((s) => s.addToCart);
 
-    const addToCart = () => {
-        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-        const exists = cart.find((item: any) => item.ID === product.ID);
-
-        if (exists) {
-            exists.qty += qty;
-        } else {
-            cart.push({ ...product, qty });
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-        onClose();
-    };
+  const handleConfirm = () => {
+    addToCart(product, qty);
+    onClose();
+  };
 
     return (
         <div className="fixed inset-0 bg-[var(--foreground)]/40 flex items-center justify-center z-50">
-            <div className="bg-[var(--background)] rounded-lg p-6 w-[90%] max-w-md">
+            <div className="bg-[var(--background)] rounded-2xl p-6 w-[90%] max-w-md">
                 <h2 className="text-xl font-semibold mb-2">
                     {product.Name}
                 </h2>
@@ -53,7 +45,7 @@ const ProductModal = ({ product, onClose }: Props) => {
 
                 <div className="flex gap-3 w-full">
                     <SecondaryButton onClick={onClose} className="flex-1"> Cancel </SecondaryButton>
-                    <PrimaryButton onClick={addToCart} className="flex-1"> Add to Cart </PrimaryButton>
+                    <PrimaryButton onClick={handleConfirm} className="flex-1"> Add to Cart </PrimaryButton>
                 </div>
 
             </div>
