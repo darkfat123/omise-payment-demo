@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/app/stores/cartStore";
-import { Delete, X } from "lucide-react";
+import { Delete, Minus, Plus, X } from "lucide-react";
 import PrimaryButton from "./PrimaryButton";
 
 const MiniCartDrawer = ({
@@ -11,9 +11,10 @@ const MiniCartDrawer = ({
     open: boolean;
     onClose: () => void;
 }) => {
-    const items = useCartStore((s) => s.items);
-    const removeFromCart = useCartStore((s) => s.removeFromCart);
-    const totalPrice = useCartStore((s) => s.totalPrice());
+    const cart = useCartStore();
+    const items = cart.items;
+    const removeFromCart = cart.removeFromCart;
+    const totalPrice = cart.totalPrice();
 
     return (
         <>
@@ -54,9 +55,28 @@ const MiniCartDrawer = ({
                                     {item.qty} × ฿{item.Price}
                                 </p>
                             </div>
-                            <Delete onClick={() => removeFromCart(item.ID)}
-                                className="text-red-500 text-sm" />
+                            <div className="flex gap-5">
+                                <div className="flex gap-1">
+                                    <button
+                                        onClick={() => cart.decreaseQty(item.ID)}
+                                        className="w-7 h-7 border rounded flex items-center justify-center"
+                                    >
+                                        <Minus size={14} />
+                                    </button>
 
+                                    <span className="min-w-[20px] text-center">
+                                        {item.qty}
+                                    </span>
+
+                                    <button
+                                        onClick={() => cart.increaseQty(item.ID)}
+                                        className="w-7 h-7 border rounded flex items-center justify-center"
+                                    >
+                                        <Plus size={14} />
+                                    </button>
+                                </div>
+                                <Delete onClick={() => removeFromCart(item.ID)} className="text-red-500 text-sm" />
+                            </div>
                         </div>
                     ))}
                 </div>
