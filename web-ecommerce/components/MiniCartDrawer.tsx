@@ -89,7 +89,7 @@ const MiniCartDrawer = ({
                         <span>Total</span>
                         <span>฿{totalPrice.toFixed(2)}</span>
                     </div>
-                    <Link href={items.length > 0 ? "/checkout" : "#"} className="flex-1">
+                    <Link href={items.length > 0 ? "/checkout" : "#"} className="flex-1" prefetch={false}>
                         <PrimaryButton disabled={items.length === 0} className="w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed">
                             Checkout
                         </PrimaryButton>
