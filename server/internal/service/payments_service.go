@@ -6,6 +6,8 @@ import (
 	"errors"
 	"server/db/sqlc"
 	"server/internal/models"
+	"strconv"
+	"time"
 
 	"github.com/omise/omise-go"
 	"github.com/omise/omise-go/operations"
@@ -95,4 +97,54 @@ func (s *PaymentService) CreatePromptPayPayment(ctx context.Context, cart models
 	}
 
 	return downloadURI, ch.ID, nil
+}
+
+func (s *PaymentService) CreateChargeWithCard(ctx context.Context, card models.CardInfo, cart models.Cart) (*omise.Charge, error) {
+	var totalAmount int64
+	for _, item := range cart.Items {
+		p, err := s.productQueries.GetProductByID(ctx, int32(item.ProductID))
+		if err != nil {
+			return nil, err
+		}
+		priceFloat, err := p.Price.Float64Value()
+		if err != nil {
+			return nil, err
+		}
+		totalAmount += int64(item.Quantity) * int64(priceFloat.Float64*100)
+	}
+
+	expMonthInt, err := strconv.Atoi(card.ExpirationMonth)
+	if err != nil {
+		return nil, err
+	}
+	expYear, err := strconv.Atoi(card.ExpirationYear)
+	if err != nil {
+		return nil, err
+	}
+
+	token := &omise.Token{}
+	createToken := &operations.CreateToken{
+		Name:            card.Name,
+		Number:          card.Number,
+		ExpirationMonth: time.Month(expMonthInt),
+		ExpirationYear:  expYear,
+		SecurityCode:    card.SecurityCode,
+	}
+
+	if err := s.client.Do(token, createToken); err != nil {
+		return nil, err
+	}
+
+	ch := &omise.Charge{}
+	createCh := &operations.CreateCharge{
+		Amount:   totalAmount,
+		Currency: "thb",
+		Card:     token.ID,
+	}
+
+	if err := s.client.Do(ch, createCh); err != nil {
+		return nil, err
+	}
+
+	return ch, nil
 }

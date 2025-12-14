@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 	"server/internal/models"
 	"server/internal/service"
@@ -26,22 +27,55 @@ func (h *PaymentHandler) CheckPaymentStatus(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-
+	log.Printf("CheckPaymentStatus response: status=%s\n", status.Status)
 	c.JSON(200, gin.H{"status": status.Status})
 }
 
 func (h *PaymentHandler) CreatePromptPayPayment(c *gin.Context) {
 	var cart models.Cart
 	if err := c.BindJSON(&cart); err != nil {
+		log.Println("Invalid cart:", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid cart"})
 		return
 	}
 
-	uri, chargeId, err := h.service.CreatePromptPayPayment(c.Request.Context(), cart)
+	log.Printf("CreatePromptPayPayment request: %+v\n", cart)
+
+	uri, chargeId, err := h.service.CreatePromptPayPayment(
+		c.Request.Context(),
+		cart,
+	)
+	if err != nil {
+		log.Println("CreatePromptPayPayment error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	log.Printf("CreatePromptPayPayment success: charge_id=%s\n", chargeId)
+
+	c.JSON(http.StatusOK, gin.H{"charge_id": chargeId, "download_uri": uri})
+}
+
+func (h *PaymentHandler) CreateCardPayment(c *gin.Context) {
+	var req models.CardPaymentRequest
+
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+
+	log.Printf("CreateCardPayment request: %+v\n", req)
+
+	ch, err := h.service.CreateChargeWithCard(c.Request.Context(), req.Card, models.Cart{
+		Items: req.Items,
+	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"charge_id": chargeId, "download_uri": uri})
+	c.JSON(http.StatusOK, gin.H{
+		"charge_id": ch.ID,
+		"status":    ch.Status,
+	})
 }
