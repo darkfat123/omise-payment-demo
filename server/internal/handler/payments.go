@@ -79,3 +79,21 @@ func (h *PaymentHandler) CreateCardPayment(c *gin.Context) {
 		"status":    ch.Status,
 	})
 }
+
+func (h *PaymentHandler) MarkChargeAsFailed(c *gin.Context) {
+	var req struct {
+		ChargeID string `json:"charge_id"`
+	}
+
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+
+	if err := h.service.MarkChargeAsFailed(req.ChargeID); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "cancelled"})
+}

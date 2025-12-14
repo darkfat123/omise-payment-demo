@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import PrimaryButton from "@/components/PrimaryButton";
 import PaymentOption from "@/components/PaymentOption";
+import { SquareChevronLeft } from "lucide-react";
 
 export default function PaymentsPage() {
   const router = useRouter();
@@ -30,10 +31,10 @@ export default function PaymentsPage() {
       />
 
       <PrimaryButton
-        className="w-full mt-4"
+        className="w-full mt-4 flex items-center justify-center gap-2"
         onClick={() => router.push("/checkout")}
       >
-        ← Back to Checkout
+       <SquareChevronLeft /> Back to Checkout
       </PrimaryButton>
     </div>
   );

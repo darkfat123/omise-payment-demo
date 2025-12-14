@@ -35,6 +35,7 @@ func SetupRouter() *gin.Engine {
 		pay.GET("/status/:chargeId", paymentHandler.CheckPaymentStatus)
 		pay.POST("/promptpay", paymentHandler.CreatePromptPayPayment)
 		pay.POST("/card", paymentHandler.CreateCardPayment)
+		pay.POST("/cancelPayment", paymentHandler.MarkChargeAsFailed)
 
 	}
 

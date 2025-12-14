@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/cartStore";
 import PrimaryButton from "@/components/PrimaryButton";
+import { SquareChevronLeft } from "lucide-react";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -22,11 +23,11 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-4">
-      <button onClick={() => router.push("/")} className="text-sm text-gray-400 hover:text-white transition cursor-pointer font-semibold">
-        ← Back to Home
+      <button onClick={() => router.push("/")} className="flex flex-row items-center text-sm text-gray-400 hover:text-[var(--hover-background)] transition cursor-pointer font-semibold gap-2">
+        <SquareChevronLeft /> Back to Home
       </button>
 
-      <div className="grid md:grid-cols-2 gap-6 bg-[var(--background)] rounded-lg ring-2 p-6">
+      <div className="grid md:grid-cols-2 gap-6 bg-[var(--box)] rounded-lg ring-2 p-6">
         <div className="space-y-4">
           <h1 className="text-xl font-semibold mb-4">
             Checkout

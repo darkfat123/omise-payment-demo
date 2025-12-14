@@ -4,6 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"server/config"
 	"server/db/sqlc"
 	"server/internal/models"
 	"strconv"
@@ -147,4 +151,29 @@ func (s *PaymentService) CreateChargeWithCard(ctx context.Context, card models.C
 	}
 
 	return ch, nil
+}
+
+func (s *PaymentService) MarkChargeAsFailed(chargeID string) error {
+	url := fmt.Sprintf("https://api.omise.co/charges/%s/mark_as_failed", chargeID)
+
+	req, err := http.NewRequest("POST", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.SetBasicAuth(config.OMISE_SECRET_KEY, "")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		body, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("failed to mark charge as failed: %s", string(body))
+	}
+
+	return nil
 }

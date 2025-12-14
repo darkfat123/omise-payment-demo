@@ -20,6 +20,7 @@ export type CardPaymentRequest = {
 };
 
 
+
 export type CardPaymentResponse = {
   charge_id: string;
   status: "pending" | "successful" | "failed";
@@ -41,4 +42,10 @@ export const createPromptPayPayment = (cart: any) =>
 export const checkPaymentStatus = (chargeId: string) =>
   http.get<{ status: string }, { status: string }>(
     `/pay/status/${chargeId}`
+  );
+
+export const cancelPayment = (chargeId: string) =>
+  http.post<{ status: string }, { status: string }>(
+    "/pay/cancelPayment",
+    { charge_id: chargeId }
   );

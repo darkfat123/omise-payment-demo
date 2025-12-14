@@ -7,6 +7,7 @@ import PrimaryButton from "@/components/PrimaryButton";
 import {
     createPromptPayPayment,
     checkPaymentStatus,
+    cancelPayment,
 } from "@/services/payments";
 
 export default function PromptPayConfirmPage() {
@@ -78,11 +79,25 @@ export default function PromptPayConfirmPage() {
         );
     }
 
+    const handleCancel = async () => {
+        if (!chargeId) return;
+        try {
+            await cancelPayment(chargeId);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            router.push("/checkout");
+        }
+    };
+
     return (
-        <div className="max-w-md mx-auto p-6 text-center space-y-4">
+        <div className="max-w-md mx-auto p-6 text-center space-y-4 ring-2 bg-[var(--box)] rounded-lg shadow-lg">
             <h1 className="text-xl font-semibold">
                 Scan to Pay (PromptPay)
             </h1>
+            <h2>
+                Amount: ฿{cart.totalPrice().toFixed(2)}
+            </h2>
 
             {qrUrl && (
                 <img
@@ -105,7 +120,7 @@ export default function PromptPayConfirmPage() {
 
             <PrimaryButton
                 className="w-full mt-4"
-                onClick={() => router.push("/checkout")}
+                onClick={handleCancel}
             >
                 Cancel Payment
             </PrimaryButton>

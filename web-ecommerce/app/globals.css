@@ -3,14 +3,16 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1b1b1f;
+  --box: #F8FAFC;
   --hover-background: #d1d1d1;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1b1b1f;
     --foreground: #ededed;
+    --box: #202127;
     --hover-background: #2c2c2c;
   }
 }

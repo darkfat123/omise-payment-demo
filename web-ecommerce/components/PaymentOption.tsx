@@ -12,7 +12,7 @@ export default function PaymentOption({
   return (
     <div
       onClick={onClick}
-      className="border rounded-lg p-4 cursor-pointer hover:ring-2 transition"
+      className="border rounded-lg p-4 cursor-pointer hover:ring-2 transition bg-[var(--box)]"
     >
       <h2 className="text-lg font-medium">{title}</h2>
       <p className="text-sm text-gray-500">{description}</p>
