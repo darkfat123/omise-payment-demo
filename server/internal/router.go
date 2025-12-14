@@ -32,7 +32,9 @@ func SetupRouter() *gin.Engine {
 		// Payment routes (protected)
 		pay := v1.Group("/pay")
 		pay.Use(middleware.AuthMiddleware())
-		pay.POST("/promptPay", paymentHandler.CreatePromptPayPayment)
+		pay.GET("/status/:chargeId", paymentHandler.CheckPaymentStatus)
+		pay.POST("/promptpay", paymentHandler.CreatePromptPayPayment)
+
 	}
 
 	return r

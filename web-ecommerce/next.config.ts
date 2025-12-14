@@ -218,6 +218,13 @@ module.exports = {
         pathname: '**',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.omise.co',
+        port: '',
+        pathname: '**',
+        search: '',
+      },
     ],
   },
 }

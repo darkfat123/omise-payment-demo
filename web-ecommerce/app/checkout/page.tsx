@@ -59,8 +59,7 @@ export default function CheckoutPage() {
             <span>Total</span>
             <span>฿{totalPrice.toFixed(2)}</span>
           </div>
-
-          <PrimaryButton className="w-full mt-4">
+          <PrimaryButton onClick={() => router.push("/payments")} className="w-full mt-4">
             Proceed to Payment
           </PrimaryButton>
         </div>
