@@ -21,12 +21,14 @@ export default function PaymentsPage() {
       <PaymentOption
         title="PromptPay QR Code"
         description="Pay via mobile banking with QR Code"
+        imageSrc="/icons/thai_qr_logo.svg"
         onClick={() => selectMethod("promptpay")}
       />
 
       <PaymentOption
         title="Credit / Debit Card"
-        description="Visa, MasterCard, JCB"
+        description="Visa, MasterCard, UnionPay, JCB"
+        imageSrc="/icons/card.svg"
         onClick={() => selectMethod("card")}
       />
 
@@ -34,7 +36,7 @@ export default function PaymentsPage() {
         className="w-full mt-4 flex items-center justify-center gap-2"
         onClick={() => router.push("/checkout")}
       >
-       <SquareChevronLeft /> Back to Checkout
+        <SquareChevronLeft /> Back to Checkout
       </PrimaryButton>
     </div>
   );

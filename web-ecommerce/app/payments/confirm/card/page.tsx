@@ -18,6 +18,7 @@ export default function CardPaymentForm() {
 
     const [cardNumber, setCardNumber] = useState("");
     const brand = detectCardBrand(cardNumber);
+    const totalPrice = useCartStore((s) => s.totalPrice().toFixed(2));
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -59,9 +60,10 @@ export default function CardPaymentForm() {
                 className="max-w-2xl mx-auto bg-[var(--box)] rounded-lg ring-2 p-6 gap-6 flex flex-col "
                 onSubmit={handleSubmit}
             >
+                <h2 className="text-md">Total Amount: ฿{totalPrice}</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="flex flex-col">
-                       <label className="text-md font-medium text-heading mb-2">
+                        <label className="text-md font-medium text-heading mb-2">
                             Card Number
                         </label>
 
@@ -78,8 +80,6 @@ export default function CardPaymentForm() {
                                 placeholder="XXXX-XXXX-XXXX-XXXX"
                                 required
                             />
-
-                            {/* Icon */}
                             <div className="absolute inset-y-0 right-4 flex items-center">
                                 <CardIcon brand={brand} />
                             </div>
@@ -106,10 +106,21 @@ export default function CardPaymentForm() {
                         </label>
                         <input
                             type="text"
+                            inputMode="numeric"
                             name="expMonth"
                             maxLength={2}
                             className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
                             placeholder="MM"
+                            onChange={(e) => {
+                                let v = e.target.value.replace(/\D/g, "").slice(0, 2);
+                                if (v.length === 1 && Number(v) > 1) {
+                                    v = "0" + v;
+                                }
+
+                                if (Number(v) > 12) v = "12";
+
+                                e.target.value = v;
+                            }}
                             required
                         />
                     </div>
@@ -183,20 +194,20 @@ export default function CardPaymentForm() {
                                             <th className="px-4 py-3 text-center font-medium">Brand</th>
                                             <th className="px-4 py-3 text-center font-medium">Card Number</th>
                                             <th className="px-4 py-3 text-center font-medium">Card Holder Name</th>
-                                            <th className="px-4 py-3 text-center font-medium"> Expiration</th>
+                                            <th className="px-4 py-3 text-center font-medium">Expiration</th>
                                             <th className="px-4 py-3 text-center font-medium">CVV</th>
                                         </tr>
                                     </thead>
 
                                     <tbody className="divide-y divide-[var(--foreground)]">
                                         {[
-                                            ["Visa", "4242 4242 4242 4242", "Any Future", "123"],
-                                            ["Visa", "4111 1111 1111 1111", "Any Future", "123"],
-                                            ["Mastercard", "5555 5555 5555 4444", "Any Future", "123"],
-                                            ["Mastercard", "5454 5454 5454 5454", "Any Future", "123"],
-                                            ["JCB", "3530 1113 3330 0000", "Any Future", "123"],
-                                            ["JCB", "3566 1111 1111 1113", "Any Future", "123"],
-                                            ["UnionPay", "6250 9470 0000 0006", "Any Future", "123"],
+                                            ["Visa", "4242 4242 4242 4242", "XX/20XX", "123"],
+                                            ["Visa", "4111 1111 1111 1111", "XX/20XX", "123"],
+                                            ["Mastercard", "5555 5555 5555 4444", "XX/20XX", "123"],
+                                            ["Mastercard", "5454 5454 5454 5454", "XX/20XX", "123"],
+                                            ["JCB", "3530 1113 3330 0000", "XX/20XX", "123"],
+                                            ["JCB", "3566 1111 1111 1113", "XX/20XX", "123"],
+                                            ["UnionPay", "6250 9470 0000 0006", "XX/20XX", "123"],
                                         ].map(([brand, number, exp, cvv]) => (
                                             <tr key={number} className="hover:bg-[var(--foreground)]/10">
                                                 <td className="px-4 py-3 text-center">{brand}</td>
@@ -210,7 +221,6 @@ export default function CardPaymentForm() {
                                 </table>
                             </div>
 
-                            {/* Footer */}
                             <div className="mt-6 flex justify-end">
                                 <button
                                     type="button"
