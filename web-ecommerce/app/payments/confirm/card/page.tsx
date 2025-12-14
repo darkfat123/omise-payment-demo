@@ -7,6 +7,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { useRouter } from "next/navigation";
 import SecondaryButton from "@/components/SecondaryButton";
 import { Info, SquareChevronLeft } from "lucide-react";
+import { formatCardNumber, CardIcon, detectCardBrand } from "@/helpers/format";
 
 export default function CardPaymentForm() {
     const router = useRouter();
@@ -14,6 +15,10 @@ export default function CardPaymentForm() {
     const [error, setError] = useState<string | null>(null);
     const cart = useCartStore((s) => s.items);
     const [showTestCardModal, setShowTestCardModal] = useState(false);
+
+    const [cardNumber, setCardNumber] = useState("");
+    const brand = detectCardBrand(cardNumber);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -56,16 +61,29 @@ export default function CardPaymentForm() {
             >
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="flex flex-col">
-                        <label className="text-md font-medium text-heading mb-2">
+                       <label className="text-md font-medium text-heading mb-2">
                             Card Number
                         </label>
-                        <input
-                            type="text"
-                            name="cardNumber"
-                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body"
-                            placeholder="XXXX-XXXX-XXXX-1234"
-                            required
-                        />
+
+                        <div className="relative">
+                            <input
+                                type="text"
+                                name="cardNumber"
+                                value={cardNumber}
+                                onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                                inputMode="numeric"
+                                autoComplete="cc-number"
+                                maxLength={19}
+                                className="px-3 py-3 w-full rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
+                                placeholder="XXXX-XXXX-XXXX-XXXX"
+                                required
+                            />
+
+                            {/* Icon */}
+                            <div className="absolute inset-y-0 right-4 flex items-center">
+                                <CardIcon brand={brand} />
+                            </div>
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         <label className="text-md font-medium text-heading mb-2">
@@ -74,7 +92,7 @@ export default function CardPaymentForm() {
                         <input
                             type="text"
                             name="cardName"
-                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body"
+                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
                             placeholder="John Doe"
                             required
                         />
@@ -89,7 +107,8 @@ export default function CardPaymentForm() {
                         <input
                             type="text"
                             name="expMonth"
-                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body"
+                            maxLength={2}
+                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
                             placeholder="MM"
                             required
                         />
@@ -102,7 +121,8 @@ export default function CardPaymentForm() {
                         <input
                             type="text"
                             name="expYear"
-                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body"
+                            maxLength={4}
+                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
                             placeholder="YYYY"
                             required
                         />
@@ -113,7 +133,8 @@ export default function CardPaymentForm() {
                         <input
                             type="text"
                             name="cvc"
-                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body"
+                            maxLength={3}
+                            className="px-3 py-3 rounded-lg border border-default-medium bg-neutral-secondary-medium text-heading text-md focus:ring-brand focus:border-brand placeholder:text-body bg-[var(--foreground)] text-[var(--background)]"
                             placeholder="123"
                             required
                         />
