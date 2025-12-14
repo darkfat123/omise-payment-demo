@@ -6,15 +6,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"server/config"
 	"server/db/sqlc"
 	"server/internal/models"
+	"server/utils"
 	"strconv"
 	"time"
 
 	"github.com/omise/omise-go"
 	"github.com/omise/omise-go/operations"
+	"github.com/shopspring/decimal"
 )
 
 var ErrInvalidSource = errors.New("invalid source structure")
@@ -41,16 +44,20 @@ func (s *PaymentService) GetChargeStatus(ctx context.Context, chargeID string) (
 
 func (s *PaymentService) CreatePromptPayPayment(ctx context.Context, cart models.Cart) (string, string, error) {
 	var totalAmount int64
+
 	for _, item := range cart.Items {
 		p, err := s.productQueries.GetProductByID(ctx, int32(item.ProductID))
 		if err != nil {
 			return "", "", err
 		}
-		priceFloat, err := p.Price.Float64Value()
+
+		priceDecimal, err := utils.NumericToDecimal(p.Price)
 		if err != nil {
 			return "", "", err
 		}
-		totalAmount += int64(item.Quantity) * int64(priceFloat.Float64*100)
+
+		priceSatang := priceDecimal.Mul(decimal.NewFromInt(100)).IntPart()
+		totalAmount += int64(item.Quantity) * priceSatang
 	}
 
 	src := &omise.Source{}
@@ -63,6 +70,8 @@ func (s *PaymentService) CreatePromptPayPayment(ctx context.Context, cart models
 	if err := s.client.Do(src, createSrc); err != nil {
 		return "", "", err
 	}
+
+	log.Printf("[Charge ID: %s] Total Amount: %d satang (%g baht)", src.ID, totalAmount, float64(totalAmount)/100)
 
 	ch := &omise.Charge{}
 	createCh := &operations.CreateCharge{
@@ -129,7 +138,7 @@ func (s *PaymentService) CreateChargeWithCard(ctx context.Context, card models.C
 	token := &omise.Token{}
 	createToken := &operations.CreateToken{
 		Name:            card.Name,
-		Number:          card.Number,
+		Number:          utils.GetNumberOnly(card.Number),
 		ExpirationMonth: time.Month(expMonthInt),
 		ExpirationYear:  expYear,
 		SecurityCode:    card.SecurityCode,
@@ -154,7 +163,7 @@ func (s *PaymentService) CreateChargeWithCard(ctx context.Context, card models.C
 }
 
 func (s *PaymentService) MarkChargeAsFailed(chargeID string) error {
-	url := fmt.Sprintf("https://api.omise.co/charges/%s/mark_as_failed", chargeID)
+	url := fmt.Sprintf(config.OMISE_CHARGE_URL+"/%s/mark_as_failed", chargeID)
 
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {

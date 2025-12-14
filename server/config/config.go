@@ -16,6 +16,7 @@ var (
 	PORT             string
 	OMISE_PUBLIC_KEY string
 	OMISE_SECRET_KEY string
+	OMISE_CHARGE_URL string
 	DATABASE_URL     string
 )
 
@@ -31,6 +32,7 @@ func InitConstants() {
 	PORT = os.Getenv("PORT")
 	OMISE_PUBLIC_KEY = os.Getenv("OMISE_PUBLIC_KEY")
 	OMISE_SECRET_KEY = os.Getenv("OMISE_SECRET_KEY")
+	OMISE_CHARGE_URL = os.Getenv("OMISE_CHARGE_URL")
 	DATABASE_URL = os.Getenv("DATABASE_URL")
 }
 

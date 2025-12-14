@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/cartStore";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -21,7 +21,12 @@ export default function PromptPayConfirmPage() {
     );
     const [loading, setLoading] = useState(true);
 
+    const hasInitRef = useRef(false);
+
     useEffect(() => {
+        if (hasInitRef.current) return;
+        hasInitRef.current = true;
+
         async function initPayment() {
             try {
                 const res = await createPromptPayPayment({
@@ -42,7 +47,7 @@ export default function PromptPayConfirmPage() {
         }
 
         initPayment();
-    }, []);
+    }, [cart.items]);
 
     useEffect(() => {
         if (!chargeId) return;
