@@ -15,10 +15,47 @@ export default function CardPaymentForm() {
     const [error, setError] = useState<string | null>(null);
     const cart = useCartStore((s) => s.items);
     const [showTestCardModal, setShowTestCardModal] = useState(false);
+    const [isFailedMode, setFailedMode] = useState(false);
 
     const [cardNumber, setCardNumber] = useState("");
     const brand = detectCardBrand(cardNumber);
     const totalPrice = useCartStore((s) => s.totalPrice().toFixed(2));
+
+    const tableBody = isFailedMode
+        ? [["Visa", "4111 1111 1114 0011", "XX/20XX", "123", "insufficient_funds"],
+        ["Mastercard", "5555 5511 1111 0011", "XX/20XX", "123", "insufficient_funds"],
+        ["JCB", "3530 1111 1119 0011", "XX/20XX", "123", "insufficient_funds"],
+        ["UnionPay", "6250 9470 0000 0014", "XX/20XX", "123", "insufficient_funds"],
+        ["Visa", "4111 1111 1113 0012", "XX/20XX", "123", "stolen_or_lost_card"],
+        ["Mastercard", "5555 5511 1110 0012", "XX/20XX", "123", "stolen_or_lost_card"],
+        ["JCB", "3530 1111 1118 0012", "XX/20XX", "123", "stolen_or_lost_card"],
+        ["UnionPay", "6250 9470 0000 0022", "XX/20XX", "123", "stolen_or_lost_card"],
+        ["Visa", "4111 1111 1112 0013", "XX/20XX", "123", "failed_processing"],
+        ["Mastercard", "5555 5511 1119 0013", "XX/20XX", "123", "failed_processing"],
+        ["JCB", "3530 1111 1117 0013", "XX/20XX", "123", "failed_processing"],
+        ["UnionPay", "6250 9470 0000 0030", "XX/20XX", "123", "failed_processing"],
+        ["Visa", "4111 1111 1111 0014", "XX/20XX", "123", "payment_rejected"],
+        ["Mastercard", "5555 5511 1118 0014", "XX/20XX", "123", "payment_rejected"],
+        ["JCB", "3530 1111 1116 0014", "XX/20XX", "123", "payment_rejected"],
+        ["UnionPay", "6250 9470 0000 0048", "XX/20XX", "123", "payment_rejected"],
+        ["Visa", "4111 1111 1119 0016", "XX/20XX", "123", "failed_fraud_check"],
+        ["Mastercard", "5555 5511 1116 0016", "XX/20XX", "123", "failed_fraud_check"],
+        ["JCB", "3530 1111 1114 0016", "XX/20XX", "123", "failed_fraud_check"],
+        ["UnionPay", "6250 9470 0000 0055", "XX/20XX", "123", "failed_fraud_check"],
+        ["Visa", "4111 1111 1118 0017", "XX/20XX", "123", "invalid_account_number"],
+        ["Mastercard", "5555 5511 1115 0017", "XX/20XX", "123", "invalid_account_number"],
+        ["JCB", "3530 1111 1113 0017", "XX/20XX", "123", "invalid_account_number"],
+        ["UnionPay", "6250 9470 0000 0063", "XX/20XX", "123", "invalid_account_number"],
+        ] : [
+            ["Visa", "4242 4242 4242 4242", "XX/20XX", "123", "Successful"],
+            ["Visa", "4111 1111 1111 1111", "XX/20XX", "123", "Successful"],
+            ["Mastercard", "5555 5555 5555 4444", "XX/20XX", "123", "Successful"],
+            ["Mastercard", "5454 5454 5454 5454", "XX/20XX", "123", "Successful"],
+            ["JCB", "3530 1113 3330 0000", "XX/20XX", "123", "Successful"],
+            ["JCB", "3566 1111 1111 1113", "XX/20XX", "123", "Successful"],
+            ["UnionPay", "6250 9470 0000 0006", "XX/20XX", "123", "Successful"],
+        ] 
+       
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -183,7 +220,7 @@ export default function CardPaymentForm() {
                         <div className="relative w-full max-w-4xl rounded-xl bg-[var(--box)] p-6 shadow-2xl">
                             <div className="mb-4 flex items-center justify-between">
                                 <h2 className="text-xl font-semibold">
-                                    Test Card Information
+                                    Test Card Information {isFailedMode ? "(Successful)" : "(Failed)"}
                                 </h2>
                             </div>
 
@@ -196,32 +233,45 @@ export default function CardPaymentForm() {
                                             <th className="px-4 py-3 text-center font-medium">Card Holder Name</th>
                                             <th className="px-4 py-3 text-center font-medium">Expiration</th>
                                             <th className="px-4 py-3 text-center font-medium">CVV</th>
+                                            <th className="px-4 py-3 text-center font-medium">Expected Result</th>
                                         </tr>
                                     </thead>
 
                                     <tbody className="divide-y divide-[var(--foreground)]">
-                                        {[
-                                            ["Visa", "4242 4242 4242 4242", "XX/20XX", "123"],
-                                            ["Visa", "4111 1111 1111 1111", "XX/20XX", "123"],
-                                            ["Mastercard", "5555 5555 5555 4444", "XX/20XX", "123"],
-                                            ["Mastercard", "5454 5454 5454 5454", "XX/20XX", "123"],
-                                            ["JCB", "3530 1113 3330 0000", "XX/20XX", "123"],
-                                            ["JCB", "3566 1111 1111 1113", "XX/20XX", "123"],
-                                            ["UnionPay", "6250 9470 0000 0006", "XX/20XX", "123"],
-                                        ].map(([brand, number, exp, cvv]) => (
+                                        {tableBody.map(([brand, number, exp, cvv, expected]) => (
                                             <tr key={number} className="hover:bg-[var(--foreground)]/10">
                                                 <td className="px-4 py-3 text-center">{brand}</td>
                                                 <td className="px-4 py-3 text-center font-mono">{number}</td>
                                                 <td className="px-4 py-3 text-center">John Doe</td>
                                                 <td className="px-4 py-3 text-center">{exp}</td>
                                                 <td className="px-4 py-3 text-center">{cvv}</td>
+                                                <td className="px-4 py-3 text-center">{expected}</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
+                            <div className="flex flex-row items-center justify-between gap-6 mt-6">
+                                <label className="inline-flex items-center cursor-pointer">
+                                    <span className="text-md font-medium text-green-600">
+                                        Successful
+                                    </span>
 
-                            <div className="mt-6 flex justify-end">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={isFailedMode}
+                                        onChange={() => setFailedMode(isFailedMode => !isFailedMode)}
+                                    />
+
+                                    <div
+                                        className={`relative mx-3 w-10 h-6 rounded-full bg-[var(--foreground)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full ${isFailedMode ? "after:bg-red-700" : "after:bg-green-700"} duration-150 transition-all  peer-checked:after:translate-x-4`}
+                                    ></div>
+                                    <span className="text-md font-medium text-red-600">
+                                        Failed
+                                    </span>
+                                </label>
+
                                 <button
                                     type="button"
                                     onClick={() => setShowTestCardModal(false)}
@@ -230,6 +280,7 @@ export default function CardPaymentForm() {
                                     Close
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 )}
