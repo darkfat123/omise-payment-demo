@@ -29,7 +29,7 @@ const ProductCardClient = ({ product }: Props) => {
                     
                     <p className="text-gray-500">{product.Description}</p>
                     <div className="flex flex-col gap-2 items-center">
-                    <p className="text-gray-200">฿{product.Price.toFixed(2)}</p>
+                    <p>฿{product.Price.toFixed(2)}</p>
                     <StarRating rating={product.Rating} />
                     </div>
                 </div>
