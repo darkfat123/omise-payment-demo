@@ -22,13 +22,15 @@ export default function PaymentsPage() {
         title="PromptPay QR Code"
         description="Pay via mobile banking with QR Code"
         imageSrc="/icons/thai_qr_logo.svg"
+        imageSize={36}
         onClick={() => selectMethod("promptpay")}
       />
 
       <PaymentOption
         title="Credit / Debit Card"
         description="Visa, MasterCard, UnionPay, JCB"
-        imageSrc="/icons/card.svg"
+        imageSrc="/icons/brand_card.png"
+        imageSize={48}
         onClick={() => selectMethod("card")}
       />
 

@@ -18,17 +18,44 @@ function detectCardBrand(cardNumber: string): CardBrand {
 }
 export { detectCardBrand };
 
+function formatErrorDescByCode(code: string) {
+  switch (code) {
+    case "insufficient_fund":
+      return "The card has insufficient funds.";
+
+    case "stolen_or_lost_card":
+      return "The card has been reported as lost or stolen.";
+
+    case "failed_processing":
+      return "The payment could not be processed. Please try again.";
+
+    case "payment_rejected":
+      return "The payment was rejected by the card issuer.";
+
+    case "failed_fraud_check":
+      return "The payment was declined due to suspected fraud.";
+
+    case "invalid_account_number":
+      return "The card number is invalid.";
+
+    default:
+      return "An unknown error occurred. (Code: " + code + ")";
+  }
+}
+export { formatErrorDescByCode };
+
+
 function CardIcon({ brand }: { brand: CardBrand }) {
   const src =
     brand === "visa"
       ? "/icons/visa.svg"
       : brand === "mastercard"
-      ? "/icons/mastercard.svg"
-      : brand === "jcb"
-      ? "/icons/jcb.svg"
-      : brand === "unionpay"
-      ? "/icons/unionpay.svg"
-      : "/icons/card.svg";
+        ? "/icons/mastercard.svg"
+        : brand === "jcb"
+          ? "/icons/jcb.svg"
+          : brand === "unionpay"
+            ? "/icons/unionpay.svg"
+            : "/icons/card.svg";
 
   return (
     <div className="w-8 h-6 flex items-center justify-center">

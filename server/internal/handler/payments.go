@@ -77,6 +77,8 @@ func (h *PaymentHandler) CreateCardPayment(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"charge_id": ch.ID,
 		"status":    ch.Status,
+		"fail_code": ch.FailureCode,
+		"fail_msg":  ch.FailureMessage,
 	})
 }
 

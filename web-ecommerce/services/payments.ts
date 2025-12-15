@@ -24,7 +24,8 @@ export type CardPaymentRequest = {
 export type CardPaymentResponse = {
   charge_id: string;
   status: "pending" | "successful" | "failed";
-  error?: string;
+  fail_code?: string;
+  fail_msg?: string;
 };
 
 export const createCardPayment = (req: CardPaymentRequest) =>

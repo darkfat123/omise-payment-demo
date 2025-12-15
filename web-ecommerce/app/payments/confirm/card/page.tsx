@@ -7,7 +7,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { useRouter } from "next/navigation";
 import SecondaryButton from "@/components/SecondaryButton";
 import { Info, SquareChevronLeft } from "lucide-react";
-import { formatCardNumber, CardIcon, detectCardBrand } from "@/helpers/format";
+import { formatCardNumber, CardIcon, detectCardBrand, formatErrorDescByCode } from "@/helpers/format";
 
 export default function CardPaymentForm() {
     const router = useRouter();
@@ -80,7 +80,7 @@ export default function CardPaymentForm() {
             if (result.status === "successful") {
                 router.push("/payments/success");
             } else {
-                setError(result?.error || "Payment failed");
+                setError(formatErrorDescByCode(result?.fail_code || "") || "Payment failed");
             }
 
         } catch (err: any) {
@@ -189,7 +189,7 @@ export default function CardPaymentForm() {
                     </div>
                 </div>
 
-                {error && <p className="text-red-500">{error}</p>}
+                {error && <p className="text-red-500 font-bold">{error}</p>}
                 <div className="flex gap-4 justify-between items-center">
                     <div>
                         <SecondaryButton type="button"
